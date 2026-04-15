@@ -11,21 +11,21 @@ const fadeInUp = {
   whileInView: { opacity: 1, y: 0 },
   viewport: { once: true },
   transition: { duration: 0.6, ease: "easeOut" }
-};
+} as const;
 
 const fadeInRight = {
   initial: { opacity: 0, x: 60 },
   whileInView: { opacity: 1, x: 0 },
   viewport: { once: true },
   transition: { duration: 0.8, ease: "easeOut" }
-};
+} as const;
 
 const fadeInLeft = {
   initial: { opacity: 0, x: -60 },
   whileInView: { opacity: 1, x: 0 },
   viewport: { once: true },
   transition: { duration: 0.8, ease: "easeOut" }
-};
+} as const;
 
 const safetyImages = [
   { src: "/images/image.png", alt: "Safety Record 1" },
