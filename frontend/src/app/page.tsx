@@ -2,8 +2,8 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { motion } from "framer-motion";
-import { useRef } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { useRef, useState, useEffect } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
 // Configuration for local gallery images.
@@ -39,6 +39,21 @@ const localGalleryImages = [
 
 export default function Home() {
   const sliderRef = useRef<HTMLDivElement>(null);
+  const [showSplash, setShowSplash] = useState(false);
+  const [isFirstVisit, setIsFirstVisit] = useState(false);
+
+  useEffect(() => {
+    const hasSeenSplash = sessionStorage.getItem("hasSeenSplash");
+    if (!hasSeenSplash) {
+      setShowSplash(true);
+      setIsFirstVisit(true);
+      const timer = setTimeout(() => {
+        setShowSplash(false);
+        sessionStorage.setItem("hasSeenSplash", "true");
+      }, 2800);
+      return () => clearTimeout(timer);
+    }
+  }, []);
 
   const slideLeft = () => {
     if (sliderRef.current) {
@@ -54,12 +69,50 @@ export default function Home() {
 
   return (
     <>
+      {/* Majestic Animated Logo Splash Screen */}
+      <AnimatePresence>
+        {showSplash && (
+          <motion.div
+            initial={{ opacity: 1 }}
+            exit={{ opacity: 0, y: "-100%" }}
+            transition={{ duration: 0.8, ease: "easeInOut" }}
+            className="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-[#091526]"
+          >
+            <motion.div
+              initial={{ scale: 0.8, opacity: 0, filter: "blur(10px)" }}
+              animate={{ scale: 1, opacity: 1, filter: "blur(0px)" }}
+              transition={{ duration: 1.2, ease: "easeOut" }}
+              className="relative w-[300px] md:w-[500px] aspect-[16/9]"
+            >
+              <Image 
+                src="/images/logo.jpg" 
+                alt="Easy To Explore Logo"
+                fill
+                priority
+                className="object-contain drop-shadow-[0_0_50px_rgba(245,102,54,0.15)]" 
+              />
+            </motion.div>
+            
+            <motion.div 
+               initial={{ opacity: 0, y: 20 }}
+               animate={{ opacity: 1, y: 0 }}
+               transition={{ delay: 0.8, duration: 1 }}
+               className="mt-8 flex items-center gap-4 hidden sm:flex"
+            >
+               <div className="w-16 h-[2px] bg-gradient-to-r from-transparent to-[#F56636]"></div>
+               <p className="text-[#F56636] uppercase tracking-[0.3em] font-medium text-sm">Preparing Your Journey</p>
+               <div className="w-16 h-[2px] bg-gradient-to-l from-transparent to-[#F56636]"></div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
       {/* Hero Section */}
       <div className="relative bg-white overflow-hidden">
         <div className="mx-auto max-w-7xl lg:grid lg:grid-cols-12 lg:gap-x-8 lg:px-8">
           <div className="px-6 pb-24 pt-10 sm:pb-32 lg:col-span-7 lg:px-0 lg:pb-56 lg:pt-48 xl:col-span-6">
             <motion.div 
-              initial={{ opacity: 0, x: -50 }}
+              initial={isFirstVisit ? { opacity: 0, x: -50 } : false}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8, ease: "easeOut" }}
               className="mx-auto max-w-2xl lg:mx-0"
@@ -86,7 +139,7 @@ export default function Home() {
           </div>
           <div className="relative lg:col-span-5 lg:-mr-8 xl:absolute xl:inset-0 xl:left-1/2 xl:mr-0 z-0 h-[50vh] lg:h-auto">
             <motion.div 
-              initial={{ opacity: 0, scale: 0.9 }}
+              initial={isFirstVisit ? { opacity: 0, scale: 0.9 } : false}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 1, ease: "easeOut" }}
               className="h-full w-full"
@@ -104,7 +157,7 @@ export default function Home() {
       </div>
 
       {/* Glimpses of Paradise Section */}
-      <div className="bg-slate-50 py-24 sm:py-32 relative overflow-hidden">
+      <div id="destinations" className="bg-slate-50 py-24 sm:py-32 relative overflow-hidden">
         <div className="absolute inset-0 bg-white/50 backdrop-blur-3xl z-0"></div>
         <div className="relative z-10 mx-auto max-w-7xl px-6 lg:px-8">
           <motion.div 
@@ -115,7 +168,7 @@ export default function Home() {
             className="flex flex-col md:flex-row md:items-end justify-between items-center mb-12"
           >
             <div className="max-w-2xl text-center md:text-left">
-              <h2 className="text-3xl font-extrabold tracking-tight text-[#132B45] sm:text-5xl">Popular Destinations</h2>
+              <h2 className="text-3xl font-extrabold tracking-tight text-[#132B45] sm:text-5xl">Popular Destinations In kashmir</h2>
               
             </div>
             
