@@ -1,7 +1,7 @@
 "use client";
 
 import Link from 'next/link';
-import Image from 'next/image';
+import { CldImage } from 'next-cloudinary';
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
@@ -18,36 +18,36 @@ const Navbar = () => {
     <nav className="bg-white/90 backdrop-blur-md sticky top-0 z-50 shadow-sm border-b border-gray-100">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-20">
-
+          
           {/* Logo Area */}
           <div className="flex items-center">
             <Link href="/" className="flex shrink-0 items-center">
               <div className="relative w-36 h-16 sm:w-44 sm:h-20">
-                <Image
-                  src="/images/logo.jpg"
+                <CldImage 
+                  src="easytoexplore/logo" 
                   alt="Easy To Explore Logo"
                   fill
-                  className="object-contain object-left"
+                  className="object-contain object-left" 
                   priority
                 />
               </div>
             </Link>
           </div>
 
-          {/* Desktop Navigation - Hidden on Mobile and Tablet (up to lg) */}
+          {/* Desktop Navigation */}
           <div className="hidden lg:flex lg:items-center lg:space-x-10">
             {navLinks.map((link) => (
-              <Link
+              <Link 
                 key={link.name}
-                href={link.href}
+                href={link.href} 
                 className="text-[#132B45] font-semibold text-sm hover:text-[#F56636] transition-colors relative group"
               >
                 {link.name}
                 <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-[#F56636] transition-all duration-300 group-hover:w-full"></span>
               </Link>
             ))}
-            <Link
-              href="/enquiry"
+            <Link 
+              href="/enquiry" 
               className="inline-flex items-center justify-center rounded-full bg-[#F56636] px-7 py-3 text-sm font-bold text-white shadow-lg shadow-orange-500/20 hover:bg-[#D54D1B] hover:-translate-y-0.5 transition-all"
             >
               Enquire Now
@@ -101,7 +101,7 @@ const Navbar = () => {
                   Plan Your Trip Now
                 </Link>
               </div>
-
+              
               <div className="pt-8 flex justify-center gap-8 text-white/40">
                 <span className="text-xs uppercase tracking-widest font-bold">Paradise Awaits</span>
               </div>

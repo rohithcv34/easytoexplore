@@ -1,8 +1,8 @@
 "use client";
 
-import Image from 'next/image';
+import { CldImage } from 'next-cloudinary';
 import { motion, AnimatePresence } from 'framer-motion';
-import { useState, useRef } from 'react';
+import { useState } from 'react';
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import Link from 'next/link';
 
@@ -28,8 +28,8 @@ const fadeInLeft = {
 } as const;
 
 const safetyImages = [
-  { src: "/images/image.png", alt: "Safety Record 1" },
-  { src: "/images/image1.png", alt: "Safety Record 2" },
+  { src: "easytoexplore/image", alt: "Safety Record 1" },
+  { src: "easytoexplore/image1", alt: "Safety Record 2" },
 ];
 
 export default function About() {
@@ -88,8 +88,8 @@ export default function About() {
             </motion.div>
             <motion.div {...fadeInRight} className="relative">
               <div className="aspect-[4/3] relative overflow-hidden rounded-2xl shadow-2xl">
-                <Image
-                  src="/images/about-1.jpg"
+                <CldImage
+                  src="easytoexplore/about-1"
                   alt="Srinagar landscapes"
                   fill
                   className="object-cover"
@@ -124,8 +124,8 @@ export default function About() {
             </motion.div>
             <motion.div {...fadeInRight} className="lg:order-1">
               <div className="aspect-[4/3] relative overflow-hidden rounded-2xl shadow-2xl">
-                <Image
-                  src="/images/image2.png"
+                <CldImage
+                  src="easytoexplore/image2"
                   alt="Premium travel experience"
                   fill
                   className="object-cover"
@@ -161,7 +161,7 @@ export default function About() {
                   transition={{ duration: 0.4 }}
                   className="absolute inset-0"
                 >
-                  <Image
+                  <CldImage
                     src={safetyImages[currentIdx].src}
                     alt={safetyImages[currentIdx].alt}
                     fill

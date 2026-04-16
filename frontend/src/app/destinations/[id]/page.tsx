@@ -1,52 +1,52 @@
+"use client";
+
 import Link from "next/link";
-import Image from "next/image";
+import { CldImage } from "next-cloudinary";
 import { ArrowLeft } from "lucide-react";
 
-// Mock data to provide aesthetic placeholders based on the URL parameter
+// Mock data updated for Cloudinary Public IDs
 const destinationMapping: Record<string, { title: string; image: string; description: string; gallery: string[] }> = {
   "gulmarg": {
     title: "Gulmarg",
-    image: "/images/gulmarg.jpg",
+    image: "easytoexplore/gulmarg",
     description: "Gulmarg is a famous hill station located in the Pir Panjal range of the Himalayas in the union territory of Jammu and Kashmir. Known for its breathtaking natural beauty, lush green meadows, snow-covered mountains, and pleasant climate, Gulmarg is one of the most popular tourist destinations in India. In winter, it becomes a major center for skiing and other snow sports. One of the main attractions of Gulmarg is the Gulmarg Gondola, which is among the highest cable cars in the world. The gondola ride takes visitors from Gulmarg to Kongdoori and then to Apharwat Peak in two phases. During the ride, tourists can enjoy stunning panoramic views of the mountains, forests, and valleys below. The Gondola ride offers a thrilling and unforgettable experience, making it a highlight of any visit to Gulmarg.",
-    gallery: ["/images/about-1.jpg", "/images/about-2.jpg"]
+    gallery: ["easytoexplore/about-1", "easytoexplore/about-2"]
   },
   "pahalgam": {
     title: "Pahalgam",
-    image: "/images/pahalgam.jpg",
+    image: "easytoexplore/pahalgam",
     description: "Pahalgam, the Valley of Shepherds, offers stunning river views and lush greenery. Perfect place to document your Betaab Valley itineraries.",
-    gallery: ["/images/about-2.jpg", "/images/about-3.jpg"]
+    gallery: ["easytoexplore/about-2", "easytoexplore/about-3"]
   },
   "sonamarg": {
     title: "Sonamarg",
-    image: "/images/sonamarg.jpg",
+    image: "easytoexplore/sonamarg",
     description: "Sonamarg, the Meadow of Gold. Explain the beauty of the Thajiwas Glacier and the Sindh River here.",
-    gallery: ["/images/about-3.jpg", "/images/about-1.jpg"]
+    gallery: ["easytoexplore/about-3", "easytoexplore/about-1"]
   },
   "local-sightseeing": {
     title: "Local Sight Seeing",
-    image: "/images/dal-lake.jpg",
+    image: "easytoexplore/dal-lake",
     description: "Discover the heart of Kashmir. Write about the majestic Dal Lake, Shikara rides, and the beautiful Mughal Gardens here.",
-    gallery: ["/images/hero.jpg", "/images/about-2.jpg"]
+    gallery: ["easytoexplore/hero", "easytoexplore/about-2"]
   }
 };
 
 export default function DestinationPage({ params }: { params: { id: string } }) {
-  // Normalize the id and fetch data from our simple mapping above
   const idValue = params.id.toLowerCase();
   
-  // If destination is found in our object, use its data, otherwise use a very generic fallback
   const destinationData = destinationMapping[idValue] || {
     title: idValue.split("-").map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(" "),
-    image: "/images/hero.jpg",
+    image: "easytoexplore/hero",
     description: `Create an enchanting description for ${idValue.split("-").join(" ")} here!`,
-    gallery: ["/images/hero.jpg", "/images/hero.jpg"]
+    gallery: ["easytoexplore/hero", "easytoexplore/hero"]
   };
 
   return (
     <div className="bg-slate-50 min-h-screen pb-20">
       {/* Dynamic Header Image */}
       <div className="relative w-full h-[50vh] md:h-[60vh] bg-gray-900">
-        <Image 
+        <CldImage 
           src={destinationData.image} 
           alt={destinationData.title}
           fill
@@ -87,7 +87,7 @@ export default function DestinationPage({ params }: { params: { id: string } }) 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                {destinationData.gallery.map((imgSrc, idx) => (
                  <div key={idx} className="relative aspect-video rounded-2xl overflow-hidden shadow-lg group">
-                    <Image 
+                    <CldImage 
                       src={imgSrc} 
                       alt={`${destinationData.title} Gallery ${idx + 1}`}
                       fill
@@ -95,12 +95,6 @@ export default function DestinationPage({ params }: { params: { id: string } }) 
                     />
                  </div>
                ))}
-               
-               {/* Informative placeholder to explain how to add more */}
-               {/* <div className="bg-slate-50 aspect-video rounded-2xl flex flex-col items-center justify-center border-2 border-dashed border-slate-200 text-slate-400 p-6 text-center">
-                  <span className="text-4xl mb-2">📸</span>
-                  <p className="text-sm font-medium">To add more photos, just update the <code>gallery</code> array for this place in the code!</p>
-               </div> */}
             </div>
           </div>
 

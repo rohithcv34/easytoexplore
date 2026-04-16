@@ -1,40 +1,37 @@
 "use client";
 
-import Image from "next/image";
+import { CldImage } from "next-cloudinary";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { useRef, useState, useEffect } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
-// Configuration for local gallery images.
-// You can replace the image files in `frontend/public/images/` at any time!
-// Add more objects here to instantly add them to the slider!
+// Configuration for Cloudinary destination images.
 const localGalleryImages = [
   {
     id: "gulmarg",
     title: "Gulmarg",
-    src: "/images/gulmarg.jpg",
+    src: "easytoexplore/gulmarg", // Public ID in Cloudinary
     alt: "Beautiful view of Gulmarg",
   },
   {
     id: "pahalgam",
     title: "Pahalgam",
-    src: "/images/pahalgam.jpg",
+    src: "easytoexplore/pahalgam",
     alt: "Scenic landscape of Pahalgam",
   },
   {
     id: "sonamarg",
     title: "Sonamarg",
-    src: "/images/sonamarg.jpg",
+    src: "easytoexplore/sonamarg",
     alt: "Majestic mountains of Sonamarg",
   },
   {
     id: "local-sightseeing",
     title: "Local Sight Seeing",
-    src: "/images/dal-lake.jpg", // Kept original image path, change if necessary
+    src: "easytoexplore/dal-lake",
     alt: "Beautiful local sight seeing spots in Srinagar",
   },
-
 ];
 
 export default function Home() {
@@ -84,8 +81,8 @@ export default function Home() {
               transition={{ duration: 1.2, ease: "easeOut" }}
               className="relative w-[300px] md:w-[500px] aspect-[16/9]"
             >
-              <Image 
-                src="/images/logo.jpg" 
+              <CldImage 
+                src="easytoexplore/logo" 
                 alt="Easy To Explore Logo"
                 fill
                 priority
@@ -144,9 +141,9 @@ export default function Home() {
               transition={{ duration: 1, ease: "easeOut" }}
               className="h-full w-full"
             >
-              <Image
+              <CldImage
                 className="aspect-[3/2] w-full bg-gray-50 object-cover lg:absolute lg:inset-0 lg:aspect-auto lg:h-full lg:rounded-bl-[120px] shadow-2xl"
-                src="/images/hero.jpg"
+                src="easytoexplore/hero"
                 alt="Dal Lake Srinagar"
                 priority
                 fill
@@ -169,7 +166,6 @@ export default function Home() {
           >
             <div className="max-w-2xl text-center md:text-left">
               <h2 className="text-3xl font-extrabold tracking-tight text-[#132B45] sm:text-5xl">Popular Destinations In kashmir</h2>
-              
             </div>
             
             {/* Slider Navigation Controls */}
@@ -211,7 +207,7 @@ export default function Home() {
                     transition={{ duration: 0.5, delay: idx * 0.1 }}
                     className="group relative overflow-hidden rounded-3xl shadow-xl transition-all hover:shadow-2xl hover:-translate-y-2 aspect-[4/5] w-full h-full"
                   >
-                    <Image 
+                    <CldImage 
                       src={image.src} 
                       alt={image.alt} 
                       fill
@@ -228,7 +224,6 @@ export default function Home() {
               ))}
             </div>
             
-            {/* Visual fade effect for the edges of the scroll container to hint more content */}
             <div className="hidden lg:block absolute top-0 -right-8 h-full w-24 bg-gradient-to-l from-slate-50 via-slate-50/80 to-transparent pointer-events-none z-10"></div>
           </div>
 
